@@ -1,0 +1,64 @@
+name: Build and Deploy to S3
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+env:
+  AWS_REGION: us-east-1
+  S3_BUCKET: ${{ vars.S3_BUCKET }}
+  S3_PREFIX: ${{ vars.S3_PREFIX }}
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Build with Maven
+      run: mvn clean package -DskipTests
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Upload WAR to S3
+      run: |
+        WAR_FILE=$(find target -name "*.war" -type f)
+        if [ -z "$WAR_FILE" ]; then
+          echo "No WAR file found in target directory"
+          exit 1
+        fi
+        
+        TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+        COMMIT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
+        S3_KEY="${S3_PREFIX}/applicationPetstore-${TIMESTAMP}-${COMMIT_SHA}.war"
+        
+        aws s3 cp "$WAR_FILE" "s3://${S3_BUCKET}/${S3_KEY}"
+        echo "Uploaded $WAR_FILE to s3://${S3_BUCKET}/${S3_KEY}"
+        
+        # Create latest symlink
+        aws s3 cp "s3://${S3_BUCKET}/${S3_KEY}" "s3://${S3_BUCKET}/${S3_PREFIX}/applicationPetstore-latest.war"
+        echo "Created latest version at s3://${S3_BUCKET}/${S3_PREFIX}/applicationPetstore-latest.war"
+
+    - name: Output deployment info
+      run: |
+        echo "::notice::WAR file deployed successfully to S3"
+        echo "::notice::Bucket: ${{ env.S3_BUCKET }}"
+        echo "::notice::Region: ${{ env.AWS_REGION }}"
