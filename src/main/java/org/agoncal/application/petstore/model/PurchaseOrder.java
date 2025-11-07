@@ -257,12 +257,12 @@ public class PurchaseOrder implements Serializable
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PurchaseOrder that = (PurchaseOrder) o;
-        return orderDate.equals(that.orderDate) && customer.equals(that.customer);
+        return getOrderDate().equals(that.getOrderDate()) && getCustomer().equals(that.getCustomer());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderDate, customer);
+        return Objects.hash(getOrderDate(), getCustomer());
     }
 
     @Override
