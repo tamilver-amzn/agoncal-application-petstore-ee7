@@ -1,16 +1,16 @@
 package org.agoncal.application.petstore.rest;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.agoncal.application.petstore.model.Category;
 import org.agoncal.application.petstore.util.Loggable;
 
-import javax.ejb.Stateless;
-import javax.persistence.*;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriBuilder;
+import jakarta.ejb.Stateless;
+import jakarta.persistence.*;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.UriBuilder;
 import java.util.List;
 
 /**
@@ -22,7 +22,7 @@ import java.util.List;
 @Stateless
 @Path("/categories")
 @Loggable
-@Api("Category")
+@Tag(name = "Category")
 public class CategoryEndpoint
 {
 
@@ -39,7 +39,7 @@ public class CategoryEndpoint
 
    @POST
    @Consumes( {"application/xml", "application/json"})
-   @ApiOperation("Creates a category")
+   @Operation(summary = "Creates a category")
    public Response create(Category entity)
    {
       em.persist(entity);
@@ -48,7 +48,7 @@ public class CategoryEndpoint
 
    @DELETE
    @Path("/{id:[0-9][0-9]*}")
-   @ApiOperation("Deletes a category by id")
+   @Operation(summary = "Deletes a category by id")
    public Response deleteById(@PathParam("id") Long id)
    {
       Category entity = em.find(Category.class, id);
@@ -63,7 +63,7 @@ public class CategoryEndpoint
    @GET
    @Path("/{id:[0-9][0-9]*}")
    @Produces( {"application/xml", "application/json"})
-   @ApiOperation("Finds a category given an identifier")
+   @Operation(summary = "Finds a category given an identifier")
    public Response findById(@PathParam("id") Long id)
    {
       TypedQuery<Category> findByIdQuery = em.createQuery("SELECT DISTINCT c FROM Category c WHERE c.id = :entityId ORDER BY c.id", Category.class);
@@ -86,7 +86,7 @@ public class CategoryEndpoint
 
    @GET
    @Produces( {"application/xml", "application/json"})
-   @ApiOperation("Lists all the categories")
+   @Operation(summary = "Lists all the categories")
    public List<Category> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)
    {
       TypedQuery<Category> findAllQuery = em.createQuery("SELECT DISTINCT c FROM Category c ORDER BY c.id", Category.class);
@@ -105,7 +105,7 @@ public class CategoryEndpoint
    @PUT
    @Path("/{id:[0-9][0-9]*}")
    @Consumes( {"application/xml", "application/json"})
-   @ApiOperation("Updates a category")
+   @Operation(summary = "Updates a category")
    public Response update(Category entity)
    {
       try

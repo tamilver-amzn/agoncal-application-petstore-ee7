@@ -5,21 +5,19 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
-import javax.inject.Inject;
-import javax.validation.Validator;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
+import jakarta.inject.Inject;
+import jakarta.validation.Validator;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
 import java.io.StringWriter;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Antonio Goncalves
  */
-@RunWith(Arquillian.class)
 public class CategoryIT {
 
     // ======================================
@@ -51,7 +49,7 @@ public class CategoryIT {
         Category category = new Category("Fish", "Any of numerous cold-blooded aquatic vertebrates characteristically having fins, gills, and a streamlined body");
 
         // Checks the object is valid
-        assertEquals("Should have not constraint violation", 0, validator.validate(category).size());
+        assertEquals(0, validator.validate(category).size(), "Should have not constraint violation");
     }
 
     @Test

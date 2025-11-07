@@ -1,16 +1,16 @@
 package org.agoncal.application.petstore.rest;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.agoncal.application.petstore.model.Item;
 import org.agoncal.application.petstore.util.Loggable;
 
-import javax.ejb.Stateless;
-import javax.persistence.*;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriBuilder;
+import jakarta.ejb.Stateless;
+import jakarta.persistence.*;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.UriBuilder;
 import java.util.List;
 
 /**
@@ -22,7 +22,7 @@ import java.util.List;
 @Stateless
 @Path("/items")
 @Loggable
-@Api("Item")
+@Tag(name = "Item")
 public class ItemEndpoint
 {
 
@@ -39,7 +39,7 @@ public class ItemEndpoint
 
    @POST
    @Consumes( {"application/xml", "application/json"})
-   @ApiOperation("Creates a new item")
+   @Operation(summary = "Creates a new item")
    public Response create(Item entity)
    {
       em.persist(entity);
@@ -48,7 +48,7 @@ public class ItemEndpoint
 
    @DELETE
    @Path("/{id:[0-9][0-9]*}")
-   @ApiOperation("Deletes an item by its id")
+   @Operation(summary = "Deletes an item by its id")
    public Response deleteById(@PathParam("id") Long id)
    {
       Item entity = em.find(Item.class, id);
@@ -63,7 +63,7 @@ public class ItemEndpoint
    @GET
    @Path("/{id:[0-9][0-9]*}")
    @Produces( {"application/xml", "application/json"})
-   @ApiOperation("Finds an item by its id")
+   @Operation(summary = "Finds an item by its id")
    public Response findById(@PathParam("id") Long id)
    {
       TypedQuery<Item> findByIdQuery = em.createQuery("SELECT DISTINCT i FROM Item i LEFT JOIN FETCH i.product WHERE i.id = :entityId ORDER BY i.id", Item.class);
@@ -86,7 +86,7 @@ public class ItemEndpoint
 
    @GET
    @Produces( {"application/xml", "application/json"})
-   @ApiOperation("Lists all items")
+   @Operation(summary = "Lists all items")
    public List<Item> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)
    {
       TypedQuery<Item> findAllQuery = em.createQuery("SELECT DISTINCT i FROM Item i LEFT JOIN FETCH i.product ORDER BY i.id", Item.class);
@@ -105,7 +105,7 @@ public class ItemEndpoint
    @PUT
    @Path("/{id:[0-9][0-9]*}")
    @Consumes( {"application/xml", "application/json"})
-   @ApiOperation("Updates an item")
+   @Operation(summary = "Updates an item")
    public Response update(Item entity)
    {
       try

@@ -1,10 +1,10 @@
 package org.agoncal.application.petstore.constraints;
 
-import javax.validation.Constraint;
-import javax.validation.Payload;
-import javax.validation.ReportAsSingleViolation;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
+import jakarta.validation.ReportAsSingleViolation;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -19,9 +19,11 @@ import java.lang.annotation.Target;
 
 @Constraint(validatedBy = {})
 @Size(min = 5)
-@Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
-      + "[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*"
-      + "@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+@Pattern(regexp = """
+      [a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.\
+      [a-z0-9!#$%&'*+/=?^_`{|}~-]+)*\
+      @(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\
+      """)
 @ReportAsSingleViolation
 @Retention(RetentionPolicy.RUNTIME)
 @Target( {ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER,

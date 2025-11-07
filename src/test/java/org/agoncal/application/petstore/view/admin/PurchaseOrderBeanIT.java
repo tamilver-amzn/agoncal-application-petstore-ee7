@@ -8,18 +8,16 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(Arquillian.class)
 public class PurchaseOrderBeanIT
 {
 
@@ -63,10 +61,10 @@ public class PurchaseOrderBeanIT
    @Test
    public void should_be_deployed()
    {
-      Assert.assertNotNull(purchaseorderbean);
+      Assertions.assertNotNull(purchaseorderbean);
    }
 
-   @Test @Ignore
+   @Test @Disabled
    public void should_crud()
    {
       // Creates an object
@@ -88,7 +86,7 @@ public class PurchaseOrderBeanIT
 
       // Finds the object from the database and checks it's the right one
       purchaseOrder = purchaseorderbean.findById(purchaseOrder.getId());
-      assertEquals(new Float(12.5F), purchaseOrder.getDiscountRate());
+      assertEquals(Float.valueOf(12.5F), purchaseOrder.getDiscountRate());
 
       // Deletes the object from the database and checks it's not there anymore
       purchaseorderbean.setId(purchaseOrder.getId());

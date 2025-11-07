@@ -1,16 +1,16 @@
 package org.agoncal.application.petstore.rest;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.agoncal.application.petstore.model.Product;
 import org.agoncal.application.petstore.util.Loggable;
 
-import javax.ejb.Stateless;
-import javax.persistence.*;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriBuilder;
+import jakarta.ejb.Stateless;
+import jakarta.persistence.*;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.UriBuilder;
 import java.util.List;
 
 /**
@@ -22,7 +22,7 @@ import java.util.List;
 @Stateless
 @Path("/products")
 @Loggable
-@Api("Product")
+@Tag(name = "Product")
 public class ProductEndpoint
 {
 
@@ -39,7 +39,7 @@ public class ProductEndpoint
 
    @POST
    @Consumes( {"application/xml", "application/json"})
-   @ApiOperation("Creates new product")
+   @Operation(summary = "Creates new product")
    public Response create(Product entity)
    {
       em.persist(entity);
@@ -48,7 +48,7 @@ public class ProductEndpoint
 
    @DELETE
    @Path("/{id:[0-9][0-9]*}")
-   @ApiOperation("Deletes a product by id")
+   @Operation(summary = "Deletes a product by id")
    public Response deleteById(@PathParam("id") Long id)
    {
       Product entity = em.find(Product.class, id);
@@ -63,7 +63,7 @@ public class ProductEndpoint
    @GET
    @Path("/{id:[0-9][0-9]*}")
    @Produces( {"application/xml", "application/json"})
-   @ApiOperation("Finds a product by id")
+   @Operation(summary = "Finds a product by id")
    public Response findById(@PathParam("id") Long id)
    {
       TypedQuery<Product> findByIdQuery = em.createQuery("SELECT DISTINCT p FROM Product p LEFT JOIN FETCH p.category WHERE p.id = :entityId ORDER BY p.id", Product.class);
@@ -86,7 +86,7 @@ public class ProductEndpoint
 
    @GET
    @Produces( {"application/xml", "application/json"})
-   @ApiOperation("Lists all products")
+   @Operation(summary = "Lists all products")
    public List<Product> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)
    {
       TypedQuery<Product> findAllQuery = em.createQuery("SELECT DISTINCT p FROM Product p LEFT JOIN FETCH p.category ORDER BY p.id", Product.class);
@@ -105,7 +105,7 @@ public class ProductEndpoint
    @PUT
    @Path("/{id:[0-9][0-9]*}")
    @Consumes( {"application/xml", "application/json"})
-   @ApiOperation("Updates a product")
+   @Operation(summary = "Updates a product")
    public Response update(Product entity)
    {
       try
