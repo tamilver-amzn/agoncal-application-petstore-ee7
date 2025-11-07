@@ -8,19 +8,17 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@RunWith(Arquillian.class)
 public class PurchaseOrderServiceIT
 {
 
@@ -65,10 +63,10 @@ public class PurchaseOrderServiceIT
    @Test
    public void should_be_deployed()
    {
-      Assert.assertNotNull(purchaseorderservice);
+      Assertions.assertNotNull(purchaseorderservice);
    }
 
-   @Test @Ignore
+   @Test @Disabled
    public void should_crud()
    {
       // Gets all the objects
@@ -91,7 +89,7 @@ public class PurchaseOrderServiceIT
 
       // Finds the object from the database and checks it's the right one
       purchaseOrder = purchaseorderservice.findById(purchaseOrder.getId());
-      assertEquals(new Float(12.5F), purchaseOrder.getDiscountRate());
+      assertEquals(Float.valueOf(12.5F), purchaseOrder.getDiscountRate());
 
       // Updates the object
       purchaseOrder.setDiscount(43.25F);
@@ -99,7 +97,7 @@ public class PurchaseOrderServiceIT
 
       // Finds the object from the database and checks it has been updated
       purchaseOrder = purchaseorderservice.findById(purchaseOrder.getId());
-      assertEquals(new Float(43.25F), purchaseOrder.getDiscountRate());
+      assertEquals(Float.valueOf(43.25F), purchaseOrder.getDiscountRate());
 
       // Deletes the object from the database and checks it's not there anymore
       purchaseorderservice.remove(purchaseOrder);

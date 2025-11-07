@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.agoncal.application</groupId>
   <artifactId>petstoreee7</artifactId>
@@ -20,32 +18,33 @@
     <version.arquillian.wildfly>3.0.1.Final</version.arquillian.wildfly>
     <version.shrinkwrap>1.2.6</version.shrinkwrap>
     <version.arquillian.rest>1.0.0.Alpha4</version.arquillian.rest>
-    <version.resteasy>3.15.3.Final</version.resteasy>
+    <version.resteasy>6.2.12.Final</version.resteasy>
     <version.derby>10.10.1.1</version.derby>
-    <version.equalsverifier>3.12.3</version.equalsverifier>
+    <version.equalsverifier>3.19.3</version.equalsverifier>
     <!-- UI (WebJar, Bootstrap, JQuery...) -->
-    <version.bootstrap>3.3.7-1</version.bootstrap>
-    <version.jquery>2.2.4</version.jquery>
-    <version.primefaces>6.1</version.primefaces>
+    <version.bootstrap>5.3.5</version.bootstrap>
+    <version.jquery>3.7.1</version.jquery>
+    <version.primefaces>15.0.3</version.primefaces>
     <version.primefaces-themes>1.1.0</version.primefaces-themes>
     <version.fontawesome>4.7.0</version.fontawesome>
     <!-- Other -->
     <version.swagger>1.6.9</version.swagger>
-    <version.log4j>2.19.0</version.log4j>
+    <version.log4j>2.25.2</version.log4j>
     <!--Maven Plugins & co-->
-    <version.maven.wildfly.plugin>4.0.0.Final</version.maven.wildfly.plugin>
-    <version.maven.war.plugin>3.1.0</version.maven.war.plugin>
+    <version.maven.wildfly.plugin>5.1.3.Final</version.maven.wildfly.plugin>
+    <version.maven.war.plugin>3.4.0</version.maven.war.plugin>
     <version.maven.compiler.plugin>3.1</version.maven.compiler.plugin>
-    <version.maven.dependency.plugin>2.10</version.maven.dependency.plugin>
+    <version.maven.dependency.plugin>3.8.1</version.maven.dependency.plugin>
     <skipITs>true</skipITs>
-    <version.maven.surefire.plugin>3.0.0-M8</version.maven.surefire.plugin>
-    <version.maven.failsafe.plugin>3.0.0-M8</version.maven.failsafe.plugin>
+    <version.maven.surefire.plugin>3.5.3</version.maven.surefire.plugin>
+    <version.maven.failsafe.plugin>3.1.2</version.maven.failsafe.plugin>
     <version.swagger.plugin>3.1.8</version.swagger.plugin>
     <!-- Project -->
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
+    <maven.compiler.release>21</maven.compiler.release>
   </properties>
 
   <dependencyManagement>
@@ -114,16 +113,65 @@
       <dependency>
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-core</artifactId>
-        <version>${version.log4j}</version>
+        <version>2.24.3</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
 
   <dependencies>
     <dependency>
-      <groupId>io.swagger</groupId>
+      <groupId>io.swagger.core.v3</groupId>
       <artifactId>swagger-annotations</artifactId>
-      <version>${version.swagger}</version>
+      <version>2.2.40</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.inject</groupId>
+      <artifactId>jakarta.inject-api</artifactId>
+      <version>2.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.ejb</groupId>
+      <artifactId>jakarta.ejb-api</artifactId>
+      <version>4.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.enterprise</groupId>
+      <artifactId>jakarta.enterprise.cdi-api</artifactId>
+      <version>4.1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.faces</groupId>
+      <artifactId>jakarta.faces-api</artifactId>
+      <version>4.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.interceptor</groupId>
+      <artifactId>jakarta.interceptor-api</artifactId>
+      <version>2.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.persistence</groupId>
+      <artifactId>jakarta.persistence-api</artifactId>
+      <version>3.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.validation</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
+      <version>3.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.ws.rs</groupId>
+      <artifactId>jakarta.ws.rs-api</artifactId>
+      <version>4.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>4.0.4</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
@@ -140,10 +188,17 @@
     <dependency>
       <groupId>org.primefaces</groupId>
       <artifactId>primefaces</artifactId>
+      <version>${version.primefaces}</version>
+      <classifier>jakarta</classifier>
     </dependency>
     <dependency>
       <groupId>org.primefaces.themes</groupId>
       <artifactId>all-themes</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+      <version>3.4.5</version>
     </dependency>
     <dependency>
       <groupId>org.webjars.bower</groupId>
@@ -155,11 +210,13 @@
       <type>pom</type>
       <scope>provided</scope>
     </dependency>
-    <!-- TEST -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>4.0.6</version>
+      <scope>runtime</scope>
     </dependency>
+    <!-- TEST -->
     <dependency>
       <groupId>nl.jqno.equalsverifier</groupId>
       <artifactId>equalsverifier</artifactId>
@@ -177,6 +234,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.14.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.jboss.arquillian.extension</groupId>
       <artifactId>arquillian-rest-client-api</artifactId>
       <version>${version.arquillian.rest}</version>
@@ -191,7 +254,7 @@
     <dependency>
       <groupId>org.jboss.resteasy</groupId>
       <artifactId>resteasy-jackson-provider</artifactId>
-      <version>${version.resteasy}</version>
+      <version>3.15.6.Final</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -217,7 +280,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>${version.maven.failsafe.plugin}</version>
+        <version>3.5.3</version>
         <executions>
           <execution>
             <goals>
@@ -284,7 +347,7 @@
         <plugins>
           <plugin>
             <artifactId>maven-failsafe-plugin</artifactId>
-            <version>${version.maven.failsafe.plugin}</version>
+            <version>3.1.2</version>
             <configuration>
               <systemPropertyVariables>
                 <arquillian.launch>arquillian-wildfly-remote</arquillian.launch>
@@ -340,7 +403,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-failsafe-plugin</artifactId>
-            <version>${version.maven.failsafe.plugin}</version>
+            <version>3.1.2</version>
             <configuration>
               <skipTests>false</skipTests>
               <systemPropertyVariables>
@@ -364,6 +427,14 @@
 
 
   <repositories>
+    <!--Q Developer Agent for Code Transformation has added a repository dependency from MavenCentral to download the newly upgraded dependencies as part of the transformation process-->
+    <repository>
+      <id>QCT-MavenCentral-Access</id>
+      <name>Maven Central</name>
+      <layout>default</layout>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+    <!--Please add the following dependency to your internal repositories, remove or replace this block with your internal repository or mirror, if you do NOT want access to MavenCentral by default-->
     <repository>
       <id>primefaces</id>
       <url>https://repository.primefaces.org/</url>

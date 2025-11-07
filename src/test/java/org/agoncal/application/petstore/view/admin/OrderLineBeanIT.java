@@ -9,15 +9,13 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(Arquillian.class)
 public class OrderLineBeanIT
 {
 
@@ -52,7 +50,7 @@ public class OrderLineBeanIT
    @Test
    public void should_be_deployed()
    {
-      Assert.assertNotNull(orderlinebean);
+      Assertions.assertNotNull(orderlinebean);
    }
 
    @Test
@@ -73,7 +71,7 @@ public class OrderLineBeanIT
 
       // Finds the object from the database and checks it's the right one
       orderLine = orderlinebean.findById(orderLine.getId());
-      assertEquals(new Integer(77), orderLine.getQuantity());
+      assertEquals(Integer.valueOf(77), orderLine.getQuantity());
 
       // Deletes the object from the database and checks it's not there anymore
       orderlinebean.setId(orderLine.getId());

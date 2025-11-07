@@ -10,15 +10,13 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(Arquillian.class)
 public class CustomerBeanIT
 {
 
@@ -54,7 +52,7 @@ public class CustomerBeanIT
    @Test
    public void should_be_deployed()
    {
-      Assert.assertNotNull(customerbean);
+      Assertions.assertNotNull(customerbean);
    }
 
    @Test
