@@ -22,7 +22,7 @@
     <version.arquillian.rest>1.0.0.Alpha4</version.arquillian.rest>
     <version.resteasy>3.15.3.Final</version.resteasy>
     <version.derby>10.10.1.1</version.derby>
-    <version.equalsverifier>3.12.3</version.equalsverifier>
+    <version.equalsverifier>3.15.4</version.equalsverifier>
     <!-- UI (WebJar, Bootstrap, JQuery...) -->
     <version.bootstrap>3.3.7-1</version.bootstrap>
     <version.jquery>2.2.4</version.jquery>
@@ -35,7 +35,7 @@
     <!--Maven Plugins & co-->
     <version.maven.wildfly.plugin>4.0.0.Final</version.maven.wildfly.plugin>
     <version.maven.war.plugin>3.1.0</version.maven.war.plugin>
-    <version.maven.compiler.plugin>3.1</version.maven.compiler.plugin>
+    <version.maven.compiler.plugin>3.11.0</version.maven.compiler.plugin>
     <version.maven.dependency.plugin>2.10</version.maven.dependency.plugin>
     <skipITs>true</skipITs>
     <version.maven.surefire.plugin>3.0.0-M8</version.maven.surefire.plugin>
@@ -44,8 +44,8 @@
     <!-- Project -->
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
   </properties>
 
   <dependencyManagement>
@@ -199,6 +199,15 @@
   <build>
     <finalName>applicationPetstore</finalName>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${version.maven.compiler.plugin}</version>
+        <configuration>
+          <source>21</source>
+          <target>21</target>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.wildfly.plugins</groupId>
         <artifactId>wildfly-maven-plugin</artifactId>
