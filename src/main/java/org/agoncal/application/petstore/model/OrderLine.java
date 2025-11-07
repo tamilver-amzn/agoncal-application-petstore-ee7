@@ -106,12 +106,12 @@ public class OrderLine implements Serializable
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderLine orderLine = (OrderLine) o;
-        return quantity.equals(orderLine.quantity) && item.equals(orderLine.item);
+        return getQuantity().equals(orderLine.getQuantity()) && getItem().equals(orderLine.getItem());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(quantity, item);
+        return Objects.hash(getQuantity(), getItem());
     }
 
     @Override
