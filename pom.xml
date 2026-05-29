@@ -10,62 +10,51 @@
   <name>Petstore application using Java EE 7</name>
 
   <properties>
-    <!-- Java EE and App servers -->
-    <version.javaee>7.0</version.javaee>
-    <version.jboss-javaee>1.1.1.Final</version.jboss-javaee>
-    <version.wildfly>26.1.3.Final</version.wildfly>
+    <!-- Jakarta EE and App servers -->
+    <version.jakartaee>10.0.0</version.jakartaee>
+    <version.wildfly>30.0.1.Final</version.wildfly>
     <!-- Test -->
     <version.junit>4.13.2</version.junit>
-    <version.arquillian>1.5.0.0</version.arquillian>
-    <version.arquillian.wildfly>3.0.1.Final</version.arquillian.wildfly>
+    <version.arquillian>1.8.0.Final</version.arquillian>
+    <version.arquillian.wildfly>5.0.1.Final</version.arquillian.wildfly>
     <version.shrinkwrap>1.2.6</version.shrinkwrap>
     <version.arquillian.rest>1.0.0.Alpha4</version.arquillian.rest>
-    <version.resteasy>3.15.3.Final</version.resteasy>
+    <version.resteasy>6.2.7.Final</version.resteasy>
     <version.derby>10.10.1.1</version.derby>
     <version.equalsverifier>3.12.3</version.equalsverifier>
     <!-- UI (WebJar, Bootstrap, JQuery...) -->
     <version.bootstrap>3.3.7-1</version.bootstrap>
     <version.jquery>2.2.4</version.jquery>
-    <version.primefaces>6.1</version.primefaces>
-    <version.primefaces-themes>1.1.0</version.primefaces-themes>
+    <version.primefaces>13.0.5</version.primefaces>
     <version.fontawesome>4.7.0</version.fontawesome>
     <!-- Other -->
-    <version.swagger>1.6.9</version.swagger>
+    <version.swagger>2.2.19</version.swagger>
     <version.log4j>2.19.0</version.log4j>
     <!--Maven Plugins & co-->
     <version.maven.wildfly.plugin>4.0.0.Final</version.maven.wildfly.plugin>
-    <version.maven.war.plugin>3.1.0</version.maven.war.plugin>
-    <version.maven.compiler.plugin>3.1</version.maven.compiler.plugin>
-    <version.maven.dependency.plugin>2.10</version.maven.dependency.plugin>
+    <version.maven.war.plugin>3.4.0</version.maven.war.plugin>
+    <version.maven.compiler.plugin>3.13.0</version.maven.compiler.plugin>
+    <version.maven.dependency.plugin>3.6.1</version.maven.dependency.plugin>
     <skipITs>true</skipITs>
-    <version.maven.surefire.plugin>3.0.0-M8</version.maven.surefire.plugin>
-    <version.maven.failsafe.plugin>3.0.0-M8</version.maven.failsafe.plugin>
-    <version.swagger.plugin>3.1.8</version.swagger.plugin>
+    <version.maven.surefire.plugin>3.2.5</version.maven.surefire.plugin>
+    <version.maven.failsafe.plugin>3.2.5</version.maven.failsafe.plugin>
     <!-- Project -->
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
   </properties>
 
   <dependencyManagement>
     <dependencies>
-      <!-- App servers -->
+      <!-- Jakarta EE -->
       <dependency>
-        <groupId>org.jboss.spec</groupId>
-        <artifactId>jboss-javaee-7.0</artifactId>
-        <version>${version.jboss-javaee}</version>
-        <type>pom</type>
+        <groupId>jakarta.platform</groupId>
+        <artifactId>jakarta.jakartaee-api</artifactId>
+        <version>${version.jakartaee}</version>
         <scope>provided</scope>
       </dependency>
       <!-- Test -->
-      <dependency>
-        <groupId>org.arquillian</groupId>
-        <artifactId>arquillian-universe</artifactId>
-        <version>${version.arquillian}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
@@ -99,11 +88,7 @@
         <groupId>org.primefaces</groupId>
         <artifactId>primefaces</artifactId>
         <version>${version.primefaces}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.primefaces.themes</groupId>
-        <artifactId>all-themes</artifactId>
-        <version>${version.primefaces-themes}</version>
+        <classifier>jakarta</classifier>
       </dependency>
       <dependency>
         <groupId>org.webjars.bower</groupId>
@@ -121,7 +106,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>io.swagger</groupId>
+      <groupId>io.swagger.core.v3</groupId>
       <artifactId>swagger-annotations</artifactId>
       <version>${version.swagger}</version>
     </dependency>
@@ -140,19 +125,15 @@
     <dependency>
       <groupId>org.primefaces</groupId>
       <artifactId>primefaces</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.primefaces.themes</groupId>
-      <artifactId>all-themes</artifactId>
+      <classifier>jakarta</classifier>
     </dependency>
     <dependency>
       <groupId>org.webjars.bower</groupId>
       <artifactId>fontawesome</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.spec</groupId>
-      <artifactId>jboss-javaee-7.0</artifactId>
-      <type>pom</type>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-api</artifactId>
       <scope>provided</scope>
     </dependency>
     <!-- TEST -->
@@ -165,10 +146,10 @@
       <artifactId>equalsverifier</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.arquillian.universe</groupId>
-      <artifactId>arquillian-junit</artifactId>
+      <groupId>org.jboss.arquillian.junit</groupId>
+      <artifactId>arquillian-junit-container</artifactId>
+      <version>${version.arquillian}</version>
       <scope>test</scope>
-      <type>pom</type>
     </dependency>
     <dependency>
       <groupId>org.jboss.shrinkwrap</groupId>
@@ -190,7 +171,7 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-jackson-provider</artifactId>
+      <artifactId>resteasy-jackson2-provider</artifactId>
       <version>${version.resteasy}</version>
       <scope>test</scope>
     </dependency>
@@ -226,50 +207,6 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>com.github.kongchen</groupId>
-        <artifactId>swagger-maven-plugin</artifactId>
-        <version>${version.swagger.plugin}</version>
-        <configuration>
-          <apiSources>
-            <apiSource>
-              <springmvc>false</springmvc>
-              <locations>org.agoncal.application.petstore.rest</locations>
-              <schemes>http,https</schemes>
-              <host>localhost:8080</host>
-              <basePath>/applicationPetstore/rest</basePath>
-              <outputFormats>json</outputFormats>
-              <info>
-                <title>Petstore APIs</title>
-                <version>1.0.0</version>
-                <description>PetStore APIs exposed</description>
-                <contact>
-                  <email>antonio.goncalves@gmail.com</email>
-                  <name>Antonio Goncalves</name>
-                  <url>https://antoniogoncalves.org/</url>
-                </contact>
-              </info>
-              <swaggerDirectory>${basedir}/src/main/webapp</swaggerDirectory>
-              <attachSwaggerArtifact>true</attachSwaggerArtifact>
-            </apiSource>
-          </apiSources>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>compile</phase>
-            <goals>
-              <goal>generate</goal>
-            </goals>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-hibernate-validations</artifactId>
-            <version>${version.swagger}</version>
-          </dependency>
-        </dependencies>
       </plugin>
     </plugins>
   </build>
@@ -362,12 +299,5 @@
     </profile>
   </profiles>
 
-
-  <repositories>
-    <repository>
-      <id>primefaces</id>
-      <url>https://repository.primefaces.org/</url>
-    </repository>
-  </repositories>
 
 </project>

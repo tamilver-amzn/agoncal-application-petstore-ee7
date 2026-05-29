@@ -1,16 +1,16 @@
 package org.agoncal.application.petstore.rest;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.agoncal.application.petstore.model.Country;
 import org.agoncal.application.petstore.util.Loggable;
 
-import javax.ejb.Stateless;
-import javax.persistence.*;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriBuilder;
+import jakarta.ejb.Stateless;
+import jakarta.persistence.*;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.UriBuilder;
 import java.util.List;
 
 /**
@@ -22,7 +22,7 @@ import java.util.List;
 @Stateless
 @Path("/countries")
 @Loggable
-@Api("Country")
+@Tag(name = "Country")
 public class CountryEndpoint
 {
 
@@ -39,7 +39,7 @@ public class CountryEndpoint
 
    @POST
    @Consumes( {"application/xml", "application/json"})
-   @ApiOperation("Creates a country")
+   @Operation(summary = "Creates a country")
    public Response create(Country entity)
    {
       em.persist(entity);
@@ -48,7 +48,7 @@ public class CountryEndpoint
 
    @DELETE
    @Path("/{id:[0-9][0-9]*}")
-   @ApiOperation("Deletes a country given an id")
+   @Operation(summary = "Deletes a country given an id")
    public Response deleteById(@PathParam("id") Long id)
    {
       Country entity = em.find(Country.class, id);
@@ -63,7 +63,7 @@ public class CountryEndpoint
    @GET
    @Path("/{id:[0-9][0-9]*}")
    @Produces( {"application/xml", "application/json"})
-   @ApiOperation("Retrieves a country by its id")
+   @Operation(summary = "Retrieves a country by its id")
    public Response findById(@PathParam("id") Long id)
    {
       TypedQuery<Country> findByIdQuery = em.createQuery("SELECT DISTINCT c FROM Country c WHERE c.id = :entityId ORDER BY c.id", Country.class);
@@ -86,7 +86,7 @@ public class CountryEndpoint
 
    @GET
    @Produces( {"application/xml", "application/json"})
-   @ApiOperation("Lists all the countries")
+   @Operation(summary = "Lists all the countries")
    public List<Country> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)
    {
       TypedQuery<Country> findAllQuery = em.createQuery("SELECT DISTINCT c FROM Country c ORDER BY c.id", Country.class);
@@ -105,7 +105,7 @@ public class CountryEndpoint
    @PUT
    @Path("/{id:[0-9][0-9]*}")
    @Consumes( {"application/xml", "application/json"})
-   @ApiOperation("Updates a country")
+   @Operation(summary = "Updates a country")
    public Response update(Country entity)
    {
       try
